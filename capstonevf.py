@@ -103,3 +103,59 @@ if page == "Market Basket Analysis by Product Type":
     st.write(f'with support of: {buttontype_return2}')
     st.write(f'and confidence of: {buttontype_return3}')
     st.write(f'and lift of: {buttontype_return4}')
+    
+#Fourth Page
+if page == "Market Basket Analysis by Product Theme":
+
+    data2 = pd.read_csv('orders_export2.csv')
+    df2 = data2
+    st.markdown("""<strong>Market Basket Analysis by Product Theme</strong>""",unsafe_allow_html=True
+    )
+    st.write("This market basket application analyzes consumer purchases by product theme in order to recommend product B, if the customer purchases product A")
+    st.write("   ")
+    st.write("   ")
+
+    #Cleaning Data
+    columns_to_keep = ['Name','Email','Financial Status', 'Paid at', 'Fulfillment Status', 'Fulfilled at', 'Accepts Marketing', 'Discount Code', 'Discount Amount', 'Created at', 'Lineitem quantity', 'Lineitem name', 'Product Type', 'Lineitem price', 'Lineitem sku', 'Lineitem fulfillment status', 'Billing Name', 'Cancelled at', 'Payment Method', 'Vendor']
+    df2 = df2[columns_to_keep]
+    new_column_names = {'Name': 'Order ID', 'Lineitem quantity': 'Quantity', 'Lineitem name':'Product Name'}
+    df2 = df2.rename(columns=new_column_names)
+    df2['Product Name'] = df2['Product Name'].astype(str)
+
+
+#Market Basket Analysis Product Theme
+
+    #Grouping by Order ID to find all the products each customer purchased
+    df_mba2=df2.groupby(['Order ID','Product Name'])['Quantity'].sum().unstack().reset_index().fillna(0).set_index('Order ID')
+   
+    #Performing One Hot Encoding: 1 if the product has been purchased, 0 if not
+    def encode_units(x):
+        if x <=0:
+            return 0
+        if x >= 1:
+            return 1
+    df_mba_encode2= df_mba2.applymap(encode_units)
+    
+    #Removing orders with less than 2 items
+    df_mba_f2=df_mba_encode2[(df_mba_encode2>0).sum(axis=1)>=2]
+
+    #Creating a frequent items from the basket that have a support above 0.007
+    frequent_items2=apriori(df_mba_f2, min_support=0.007,use_colnames=True).sort_values('support',ascending=False).reset_index(drop=True)
+    frequent_items2['length']=frequent_items2['itemsets'].apply(lambda x: len(x))
+
+    #Generate a dataframe containing the rules and their corresponding metrics.
+    rules2 = association_rules(frequent_items2,metric='lift',min_threshold=1).sort_values('lift',ascending=False).reset_index(drop=True)
+   
+    #Sorting the dataframe by descending lift value
+    rules2 = rules2.sort_values("lift",ascending=False).reset_index(drop= True)
+
+    #Creating a selectbox for Selecting a Product and getting the corresponding recommendation
+    button = st.selectbox("Select Product Theme", rules2.antecedents, 0)
+    button_return1 = rules2.loc[rules2.antecedents == button]["consequents"].iloc[0]
+    button_return2 = rules2.loc[rules2.antecedents == button]["support"].iloc[0]
+    button_return3 = rules2.loc[rules2.antecedents == button]["confidence"].iloc[0]
+    button_return4 = rules2.loc[rules2.antecedents == button]["lift"].iloc[0]
+    st.write(f'Customer who buys the selected product is likely to buy: {button_return1}')
+    st.write(f'with support of: {button_return2}')
+    st.write(f'and confidence of: {button_return3}')
+    st.write(f'and lift of: {button_return4}')
