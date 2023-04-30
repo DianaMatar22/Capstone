@@ -36,7 +36,7 @@ if page == "Overview":
 
     with col2:
         #Image
-         st.image('Captureluanatic3.png')
+        st.image('luanaticstreamlit.png')
 
 #Second Page
 if page == "Visualization Dashboard":
