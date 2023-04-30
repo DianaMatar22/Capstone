@@ -2,6 +2,4 @@ streamlit
 pandas
 numpy
 mlxtend 
-apriori
-association_rules
 streamlit.components.v1
