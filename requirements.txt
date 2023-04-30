@@ -1,7 +1,7 @@
 streamlit
 pandas
 numpy
-mlxtend.frequent_patterns
+mlxtend 
 apriori
 association_rules
 streamlit.components.v1
