@@ -96,9 +96,9 @@ if page == "Market Basket Analysis by Product Type":
     #Creating a selectbox for Selecting a Product and getting the corresponding recommendation
     buttontype = st.selectbox("Select Product Type", rules.antecedents, 0)
     buttontype_return1 = rules.loc[rules.antecedents == buttontype]["consequents"].iloc[0]
-    buttontype_return2 = round(rules.loc[rules.antecedents == buttontype]["support"].iloc[0],2)
-    buttontype_return3 = rules.loc[rules.antecedents == buttontype]["confidence"].iloc[0]
-    buttontype_return4 = rules.loc[rules.antecedents == buttontype]["lift"].iloc[0]
+    buttontype_return2 = round(rules.loc[rules.antecedents == buttontype]["support"].iloc[0],3)
+    buttontype_return3 = round(rules.loc[rules.antecedents == buttontype]["confidence"].iloc[0],3)
+    buttontype_return4 = round(rules.loc[rules.antecedents == buttontype]["lift"].iloc[0],3)
     st.write(f'Customer who buys the selected product is likely to buy: {buttontype_return1}')
     st.write(f'with support of: {buttontype_return2} | Out of all the transactions, how much does item A appear')
     st.write(f'and confidence of: {buttontype_return3} | How likely a customer is buy item B if they buy item A')
@@ -152,9 +152,9 @@ if page == "Market Basket Analysis by Product Theme":
     #Creating a selectbox for Selecting a Product and getting the corresponding recommendation
     button = st.selectbox("Select Product Theme", rules2.antecedents, 0)
     button_return1 = rules2.loc[rules2.antecedents == button]["consequents"].iloc[0]
-    button_return2 = rules2.loc[rules2.antecedents == button]["support"].iloc[0]
-    button_return3 = rules2.loc[rules2.antecedents == button]["confidence"].iloc[0]
-    button_return4 = rules2.loc[rules2.antecedents == button]["lift"].iloc[0]
+    button_return2 = round(rules2.loc[rules2.antecedents == button]["support"].iloc[0],3)
+    button_return3 = round(rules2.loc[rules2.antecedents == button]["confidence"].iloc[0],3)
+    button_return4 = round(rules2.loc[rules2.antecedents == button]["lift"].iloc[0],3)
     st.write(f'Customer who buys the selected product is likely to buy: {button_return1}')
     st.write(f'with support of: {button_return2} | Out of all the transactions, how much does item A appear')
     st.write(f'and confidence of: {button_return3} | How likely a customer is buy item B if they buy item A')
