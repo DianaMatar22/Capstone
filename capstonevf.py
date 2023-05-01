@@ -140,9 +140,9 @@ if page == "Market Basket Analysis by Product Theme":
     df_mba_f2=df_mba_encode2[(df_mba_encode2>0).sum(axis=1)>=2]
 
     #Creating a frequent items from the basket that have a support above 0.01
-    frequent_items2=apriori(df_mba_f2, min_support=0.01,use_colnames=True).sort_values('support',ascending=False).reset_index(drop=True)
-    frequent_items2['length']=frequent_items2['itemsets'].apply(lambda x: len(x))
     file_result_df = df_mba_f2[df_mba_f2['itemsets'].astype(str).str.contains(fname)]
+    frequent_items2=apriori(file_result_df, min_support=0.01,use_colnames=True).sort_values('support',ascending=False).reset_index(drop=True)
+    frequent_items2['length']=frequent_items2['itemsets'].apply(lambda x: len(x))
     
     #Generate a dataframe containing the rules and their corresponding metrics.
     rules2 = association_rules(frequent_items2,metric='lift',min_threshold=1).sort_values('lift',ascending=False).reset_index(drop=True)
