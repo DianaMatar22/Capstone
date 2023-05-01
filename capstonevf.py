@@ -94,8 +94,20 @@ if page == "Market Basket Analysis by Product Type":
     rules = rules.sort_values("lift",ascending=False).reset_index(drop= True)
 
     #Creating a selectbox for Selecting a Product and getting the corresponding recommendation
-    buttontype = st.selectbox("Select Product Type | Item A", [set(x) for x in rules.antecedents], 0)
-    buttontype_return1 = set(rules.loc[rules.antecedents == buttontype]["consequents"].iloc[0])
+    
+    # create a list of options for the Selectbox, with curly braces and quotation marks removed
+    options = [', '.join(list(map(str, x))) for x in rules.antecedents]
+    # create the Selectbox with the modified options
+    buttontype = st.selectbox("Select Product Type | Item A", options, 0)
+    
+    # extract the consequents from the dataframe
+    consequent_set = rules.loc[rules.antecedents == buttontype]["consequents"].iloc[0]
+    # convert the set to a string
+    consequent_str = str(list(consequent_set)[0])
+    # remove the unwanted characters
+    consequent_clean = consequent_str.replace("{", "").replace("}", "").replace("'", "")
+    buttontype_return1 = consequent_clean
+    
     buttontype_return2 = f"{round(rules.loc[rules.antecedents == buttontype]['support'].iloc[0]*100, 2)}%"
     buttontype_return3 = f"{round(rules.loc[rules.antecedents == buttontype]['confidence'].iloc[0]*100, 2)}%"
     buttontype_return4 = round(rules.loc[rules.antecedents == buttontype]["lift"].iloc[0],2)
@@ -103,6 +115,7 @@ if page == "Market Basket Analysis by Product Type":
     st.write(f'Out of all the orders transactions, Item A appears {buttontype_return2} times of the time')
     st.write(f'Customers are {buttontype_return3} times more likely to buy Item B if they buy Item A')
     st.write(f'Customers who are buying item A are {buttontype_return4} times more likely buying item B')
+    
     
 #Fourth Page
 if page == "Market Basket Analysis by Product Theme":
