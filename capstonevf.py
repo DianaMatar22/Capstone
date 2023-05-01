@@ -142,7 +142,8 @@ if page == "Market Basket Analysis by Product Theme":
     #Creating a frequent items from the basket that have a support above 0.01
     frequent_items2=apriori(df_mba_f2, min_support=0.01,use_colnames=True).sort_values('support',ascending=False).reset_index(drop=True)
     frequent_items2['length']=frequent_items2['itemsets'].apply(lambda x: len(x))
-
+    file_result_df = file_result_df[file_result_df['itemsets'].astype(str).str.contains(fname)]
+    
     #Generate a dataframe containing the rules and their corresponding metrics.
     rules2 = association_rules(frequent_items2,metric='lift',min_threshold=1).sort_values('lift',ascending=False).reset_index(drop=True)
    
@@ -159,3 +160,5 @@ if page == "Market Basket Analysis by Product Theme":
     st.write(f'Out of all the orders transactions, Item A appears {button_return2} times of the time')
     st.write(f'Customers are {button_return3} times more likely to buy Item B if they buy Item A')
     st.write(f'Customers who are buying item A are {button_return4} times more likely buying item B')
+    
+    
