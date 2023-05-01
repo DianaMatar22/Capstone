@@ -86,7 +86,7 @@ if page == "Market Basket Analysis by Product Type":
     #Creating a frequent items from the basket that have a support above 0.04
     frequent_itemsets_plus=apriori(df_mba_f, min_support=0.04,use_colnames=True).sort_values('support',ascending=False).reset_index(drop=True)
     frequent_itemsets_plus['length']=frequent_itemsets_plus['itemsets'].apply(lambda x: len(x))
-    
+
     #Generate a dataframe containing the rules and their corresponding metrics.
     rules =association_rules(frequent_itemsets_plus,metric='lift',min_threshold=1).sort_values('lift',ascending=False).reset_index(drop=True)
    
@@ -94,12 +94,8 @@ if page == "Market Basket Analysis by Product Type":
     rules = rules.sort_values("lift",ascending=False).reset_index(drop= True)
 
     #Creating a selectbox for Selecting a Product and getting the corresponding recommendation
-    
-    # create a list of options for the Selectbox, with curly braces and quotation marks removed
-    options = [', '.join(list(map(str, x))) for x in rules.antecedents]
-    # create the Selectbox with the modified options
-    buttontype = st.selectbox("Select Product Type | Item A", options, 0)
-    buttontype_return1 = set(rules.loc[rules.antecedents == buttontype]["consequents"].iloc[0])
+    buttontype = st.selectbox("Select Product Type | Item A", rules.antecedents, 0)
+    buttontype_return1 = rules.loc[rules.antecedents == buttontype]["consequents"].iloc[0]
     buttontype_return2 = f"{round(rules.loc[rules.antecedents == buttontype]['support'].iloc[0]*100, 2)}%"
     buttontype_return3 = f"{round(rules.loc[rules.antecedents == buttontype]['confidence'].iloc[0]*100, 2)}%"
     buttontype_return4 = round(rules.loc[rules.antecedents == buttontype]["lift"].iloc[0],2)
@@ -107,7 +103,6 @@ if page == "Market Basket Analysis by Product Type":
     st.write(f'Out of all the orders transactions, Item A appears {buttontype_return2} times of the time')
     st.write(f'Customers are {buttontype_return3} times more likely to buy Item B if they buy Item A')
     st.write(f'Customers who are buying item A are {buttontype_return4} times more likely buying item B')
-    
     
 #Fourth Page
 if page == "Market Basket Analysis by Product Theme":
@@ -147,6 +142,7 @@ if page == "Market Basket Analysis by Product Theme":
     #Creating a frequent items from the basket that have a support above 0.01
     frequent_items2=apriori(df_mba_f2, min_support=0.01,use_colnames=True).sort_values('support',ascending=False).reset_index(drop=True)
     frequent_items2['length']=frequent_items2['itemsets'].apply(lambda x: len(x))
+
 
     #Generate a dataframe containing the rules and their corresponding metrics.
     rules2 = association_rules(frequent_items2,metric='lift',min_threshold=1).sort_values('lift',ascending=False).reset_index(drop=True)
