@@ -86,7 +86,7 @@ if page == "Market Basket Analysis by Product Type":
     #Creating a frequent items from the basket that have a support above 0.04
     frequent_itemsets_plus=apriori(df_mba_f, min_support=0.04,use_colnames=True).sort_values('support',ascending=False).reset_index(drop=True)
     frequent_itemsets_plus['length']=frequent_itemsets_plus['itemsets'].apply(lambda x: len(x))
-    st.write(list(itemsets))
+    st.write(list(frequent_itemsets_plus))
     
     #Generate a dataframe containing the rules and their corresponding metrics.
     rules =association_rules(frequent_itemsets_plus,metric='lift',min_threshold=1).sort_values('lift',ascending=False).reset_index(drop=True)
