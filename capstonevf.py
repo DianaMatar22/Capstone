@@ -94,8 +94,10 @@ if page == "Market Basket Analysis by Product Type":
     rules = rules.sort_values("lift",ascending=False).reset_index(drop= True)
 
     #Creating a selectbox for Selecting a Product and getting the corresponding recommendation
-    buttontype = st.selectbox("Select Product Type | Item A", rules.antecedents, 0)
-    buttontype_return1 = rules.loc[rules.antecedents == buttontype]["consequents"].iloc[0]
+    
+    #Creating a selectbox for Selecting a Product and getting the corresponding recommendation
+    buttontype = st.selectbox("Select Product Type | Item A", [set(x) for x in rules.antecedents], 0)
+    buttontype_return1 = set(rules.loc[rules.antecedents == buttontype]["consequents"].iloc[0])
     buttontype_return2 = f"{round(rules.loc[rules.antecedents == buttontype]['support'].iloc[0]*100, 2)}%"
     buttontype_return3 = f"{round(rules.loc[rules.antecedents == buttontype]['confidence'].iloc[0]*100, 2)}%"
     buttontype_return4 = round(rules.loc[rules.antecedents == buttontype]["lift"].iloc[0],2)
@@ -151,8 +153,8 @@ if page == "Market Basket Analysis by Product Theme":
     rules2 = rules2.sort_values("lift",ascending=False).reset_index(drop= True)
 
     #Creating a selectbox for Selecting a Product and getting the corresponding recommendation
-    button = st.selectbox("Select Product Theme | Item A ", rules2.antecedents, 0)
-    button_return1 = rules2.loc[rules2.antecedents == button]["consequents"].iloc[0]
+    button = st.selectbox("Select Product Theme | Item A", [set(x) for x in rules2.antecedents], 0)
+    button_return1 = set(rules2.loc[rules2.antecedents == button]["consequents"].iloc[0])
     button_return2 = f"{round(rules2.loc[rules2.antecedents == button]['support'].iloc[0]*100, 2)}%"
     button_return3 = f"{round(rules2.loc[rules2.antecedents == button]['confidence'].iloc[0]*100, 2)}%"
     button_return4 = round(rules2.loc[rules2.antecedents == button]["lift"].iloc[0],2)
