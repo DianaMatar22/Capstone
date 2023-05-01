@@ -96,7 +96,11 @@ if page == "Market Basket Analysis by Product Type":
     #Creating a selectbox for Selecting a Product and getting the corresponding recommendation
     
     #Creating a selectbox for Selecting a Product and getting the corresponding recommendation
-    buttontype = st.selectbox("Select Product Type | Item A", [set(x) for x in rules.antecedents], 0)
+    
+    # create a list of options for the Selectbox, with curly braces and quotation marks removed
+    options = [', '.join(list(map(str, x))) for x in rules.antecedents]
+    # create the Selectbox with the modified options
+    buttontype = st.selectbox("Select Product Type | Item A", options, 0)
     buttontype_return1 = set(rules.loc[rules.antecedents == buttontype]["consequents"].iloc[0])
     buttontype_return2 = f"{round(rules.loc[rules.antecedents == buttontype]['support'].iloc[0]*100, 2)}%"
     buttontype_return3 = f"{round(rules.loc[rules.antecedents == buttontype]['confidence'].iloc[0]*100, 2)}%"
@@ -153,7 +157,10 @@ if page == "Market Basket Analysis by Product Theme":
     rules2 = rules2.sort_values("lift",ascending=False).reset_index(drop= True)
 
     #Creating a selectbox for Selecting a Product and getting the corresponding recommendation
-    button = st.selectbox("Select Product Theme | Item A", [set(x) for x in rules2.antecedents], 0)
+    options2 = [', '.join(list(map(str, x))) for x in rules2.antecedents]
+    # create the Selectbox with the modified options
+    button = st.selectbox("Select Product Type | Item A", options2, 0)
+    
     button_return1 = set(rules2.loc[rules2.antecedents == button]["consequents"].iloc[0])
     button_return2 = f"{round(rules2.loc[rules2.antecedents == button]['support'].iloc[0]*100, 2)}%"
     button_return3 = f"{round(rules2.loc[rules2.antecedents == button]['confidence'].iloc[0]*100, 2)}%"
