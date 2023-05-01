@@ -99,17 +99,7 @@ if page == "Market Basket Analysis by Product Type":
     options = [', '.join(list(map(str, x))) for x in rules.antecedents]
     # create the Selectbox with the modified options
     buttontype = st.selectbox("Select Product Type | Item A", options, 0)
-    
-    # extract the consequents from the dataframe
-    consequent_set = ''
-    if not rules.empty and buttontype in rules['antecedents'].tolist():
-        consequent_set = rules.loc[rules.antecedents == buttontype]["consequents"].iloc[0]
-    # convert the set to a string
-    consequent_str = str(list(consequent_set)[0])
-    # remove the unwanted characters
-    consequent_clean = consequent_str.replace("{", "").replace("}", "").replace("'", "")
-    buttontype_return1 = consequent_clean
-    
+    buttontype_return1 = set(rules.loc[rules.antecedents == buttontype]["consequents"].iloc[0])
     buttontype_return2 = f"{round(rules.loc[rules.antecedents == buttontype]['support'].iloc[0]*100, 2)}%"
     buttontype_return3 = f"{round(rules.loc[rules.antecedents == buttontype]['confidence'].iloc[0]*100, 2)}%"
     buttontype_return4 = round(rules.loc[rules.antecedents == buttontype]["lift"].iloc[0],2)
