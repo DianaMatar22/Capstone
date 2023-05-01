@@ -95,7 +95,7 @@ if page == "Market Basket Analysis by Product Type":
 
     #Creating a selectbox for Selecting a Product and getting the corresponding recommendation
     buttontype = st.selectbox("Select Product Type | Item A", [set(x) for x in rules.antecedents], 0)
-    buttontype_return1 = rules.loc[rules.antecedents == buttontype]["consequents"].iloc[0]
+    buttontype_return1 = set(rules.loc[rules.antecedents == buttontype]["consequents"].iloc[0])
     buttontype_return2 = f"{round(rules.loc[rules.antecedents == buttontype]['support'].iloc[0]*100, 2)}%"
     buttontype_return3 = f"{round(rules.loc[rules.antecedents == buttontype]['confidence'].iloc[0]*100, 2)}%"
     buttontype_return4 = round(rules.loc[rules.antecedents == buttontype]["lift"].iloc[0],2)
