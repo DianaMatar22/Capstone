@@ -101,7 +101,9 @@ if page == "Market Basket Analysis by Product Type":
     buttontype = st.selectbox("Select Product Type | Item A", options, 0)
     
     # extract the consequents from the dataframe
-    consequent_set = rules.loc[rules.antecedents == buttontype]["consequents"].iloc[0]
+    consequent_set = ''
+    if not rules.empty and buttontype in rules['antecedents'].tolist():
+        consequent_set = rules.loc[rules.antecedents == buttontype]["consequents"].iloc[0]
     # convert the set to a string
     consequent_str = str(list(consequent_set)[0])
     # remove the unwanted characters
