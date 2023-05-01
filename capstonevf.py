@@ -29,7 +29,8 @@ if page == "Overview":
     col1, col2 = st.columns([3, 1])
     with col1:
         #Title
-        st.image('Header.png', width=900)
+        st.markdown("""<strong style='font-size: 22px'><span style='font-family: "Helvetica Neue", Helvetica, sans-serif;'>Luanatic is a Lebanese gift shop that has been turning words and visuals into witty little things since 2009</span></strong>""", unsafe_allow_html=True)
+        #st.markdown("""<strong style='font-size: 24px'>Luanatic  is a Lebanese gift shop that has been turning words and visuals into witty little things since 2009</strong>""", unsafe_allow_html=True)
         st.write("Luanatic have a variety of products that they sell such as mugs, espresso mugs, posters, keychains, bibs, tote bags, magnets, notebooks, stickers, pouches, bottles, and more...") 
         st.write("Moreover, each product they have, comes in different themes. For example, Mug Habibi, Bib Khalto Rocks, Poster Alo Beirut, Espresso Mug Shaffeh, Keychain Supermama, etc...")
         st.write("In this project, the main purpose was to analyze Luanatic customer purchase behavior on the website and create a recommendation system to optimize the cross-selling process and in turn increase profitability.")
@@ -53,10 +54,10 @@ if page == "Market Basket Analysis by Product Type":
     data = pd.read_csv('orders_export.csv')
     df = data 
 
-    st.markdown("""<strong>Market Basket Analysis by Product Type</strong>""",unsafe_allow_html=True
+    st.markdown("""<strong>This market basket application analyzes consumer purchases by product type in order to recommend product B, if the customer purchases product A</strong>""",unsafe_allow_html=True
     )
     #Writing an explanation of market basket analysis
-    st.write("This market basket application analyzes consumer purchases by product type in order to recommend product B, if the customer purchases product A")
+    #st.write("This market basket application analyzes consumer purchases by product type in order to recommend product B, if the customer purchases product A")
     st.write("   ")
     st.write("   ")
 
@@ -100,8 +101,9 @@ if page == "Market Basket Analysis by Product Type":
     buttontype_return3 = f"{round(rules.loc[rules.antecedents == buttontype]['confidence'].iloc[0]*100, 2)}%"
     buttontype_return4 = round(rules.loc[rules.antecedents == buttontype]["lift"].iloc[0],2)
     st.write(f'Customers who buy Product Item A are likely to buy Item B: {buttontype_return1}')
-    st.write(f'Out of all the orders transactions, Item A appears {buttontype_return2} times of the time')
-    st.write(f'Customers are {buttontype_return3} times more likely to buy Item B if they buy Item A')
+    st.write(" ")
+    st.write(f'Out of all the orders transactions, Items A & B appear {buttontype_return2} of the time')
+    st.write(f'Customers who buy item A are {buttontype_return3} more likely to buy Item B')
     st.write(f'Customers who are buying item A are {buttontype_return4} times more likely buying item B')
     
 #Fourth Page
@@ -109,9 +111,9 @@ if page == "Market Basket Analysis by Product Theme":
 
     data2 = pd.read_csv('orders_export2.csv')
     df2 = data2
-    st.markdown("""<strong>Market Basket Analysis by Product Theme</strong>""",unsafe_allow_html=True
+    st.markdown("""<strong>This market basket application analyzes consumer purchases by product theme in order to recommend product B, if the customer purchases product A</strong>""",unsafe_allow_html=True
     )
-    st.write("This market basket application analyzes consumer purchases by product theme in order to recommend product B, if the customer purchases product A")
+    #st.write("This market basket application analyzes consumer purchases by product theme in order to recommend product B, if the customer purchases product A")
     st.write("   ")
     st.write("   ")
 
@@ -151,12 +153,13 @@ if page == "Market Basket Analysis by Product Theme":
     rules2 = rules2.sort_values("lift",ascending=False).reset_index(drop= True)
 
     #Creating a selectbox for Selecting a Product and getting the corresponding recommendation
-    button = st.selectbox("Select Product Type | Item A", [set(x) for x in rules2.antecedents], 0)
+    button = st.selectbox("Select Product Theme | Item A", [set(x) for x in rules2.antecedents], 0)
     button_return1 = set(rules2.loc[rules2.antecedents == button]["consequents"].iloc[0])
     button_return2 = f"{round(rules2.loc[rules2.antecedents == button]['support'].iloc[0]*100, 2)}%"
     button_return3 = f"{round(rules2.loc[rules2.antecedents == button]['confidence'].iloc[0]*100, 2)}%"
     button_return4 = round(rules2.loc[rules2.antecedents == button]["lift"].iloc[0],2)
     st.write(f'Customers who buy Product Item A are likely to buy Item B: {button_return1}')
-    st.write(f'Out of all the orders transactions, Item A appears {button_return2} times of the time')
-    st.write(f'Customers are {button_return3} times more likely to buy Item B if they buy Item A')
+    st.write(" ")
+    st.write(f'Out of all the orders transactions, Items A & B appear {button_return2} of the time')
+    st.write(f'Customers who buy item A are {button_return3} more likely to buy Item B')
     st.write(f'Customers who are buying item A are {button_return4} times more likely buying item B')
