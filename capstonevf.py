@@ -94,11 +94,6 @@ if page == "Market Basket Analysis by Product Type":
     rules = rules.sort_values("lift",ascending=False).reset_index(drop= True)
 
     #Creating a selectbox for Selecting a Product and getting the corresponding recommendation
-    
-    #Creating a selectbox for Selecting a Product and getting the corresponding recommendation
-    
-    # create a list of options for the Selectbox, with curly braces and quotation marks removed
-    #Creating a selectbox for Selecting a Product and getting the corresponding recommendation
     buttontype = st.selectbox("Select Product Type | Item A", [set(x) for x in rules.antecedents], 0)
     buttontype_return1 = set(rules.loc[rules.antecedents == buttontype]["consequents"].iloc[0])
     buttontype_return2 = f"{round(rules.loc[rules.antecedents == buttontype]['support'].iloc[0]*100, 2)}%"
@@ -155,7 +150,6 @@ if page == "Market Basket Analysis by Product Theme":
     #Sorting the dataframe by descending lift value
     rules2 = rules2.sort_values("lift",ascending=False).reset_index(drop= True)
 
-    #Creating a selectbox for Selecting a Product and getting the corresponding recommendation
     #Creating a selectbox for Selecting a Product and getting the corresponding recommendation
     button = st.selectbox("Select Product Type | Item A", [set(x) for x in rules2.antecedents], 0)
     button_return1 = set(rules2.loc[rules2.antecedents == button]["consequents"].iloc[0])
