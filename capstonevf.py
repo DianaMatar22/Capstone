@@ -100,11 +100,12 @@ if page == "Market Basket Analysis by Product Type":
     buttontype_return2 = f"{round(rules.loc[rules.antecedents == buttontype]['support'].iloc[0]*100, 2)}%"
     buttontype_return3 = f"{round(rules.loc[rules.antecedents == buttontype]['confidence'].iloc[0]*100, 2)}%"
     buttontype_return4 = round(rules.loc[rules.antecedents == buttontype]["lift"].iloc[0],2)
-    st.write(f'Customers who buy Product Item A are likely to buy Item B: {buttontype_return1}')
-    st.write(" ")
-    st.write(f'Out of all the orders transactions, Items A & B appear {buttontype_return2} of the time')
-    st.write(f'Customers who buy item A are {buttontype_return3} more likely to buy Item B')
-    st.write(f'Customers who are buying item A are {buttontype_return4} times more likely buying item B')
+    st.write(f'Customer who buys {buttontype} is likely to buy: {buttontype_return1}')
+    
+    st.write("   ")
+    st.write(f'{buttontype_return2} of all the transactions under analysis showed that {buttontype} and {buttontype_return1} were purchased together')
+    st.write(f'If a customer buys {buttontype} there is a {buttontype_return3} chance that they will buy {buttontype_return1} as well.')
+    st.write(f'The purchase of {buttontype_return1} lifts the purchase of {buttontype} by {buttontype_return4} times.')
     
 #Fourth Page
 if page == "Market Basket Analysis by Product Theme":
@@ -158,8 +159,10 @@ if page == "Market Basket Analysis by Product Theme":
     button_return2 = f"{round(rules2.loc[rules2.antecedents == button]['support'].iloc[0]*100, 2)}%"
     button_return3 = f"{round(rules2.loc[rules2.antecedents == button]['confidence'].iloc[0]*100, 2)}%"
     button_return4 = round(rules2.loc[rules2.antecedents == button]["lift"].iloc[0],2)
-    st.write(f'Customers who buy Product Item A are likely to buy Item B: {button_return1}')
-    st.write(" ")
-    st.write(f'Out of all the orders transactions, Items A & B appear {button_return2} of the time')
-    st.write(f'Customers who buy item A are {button_return3} more likely to buy Item B')
-    st.write(f'Customers who are buying item A are {button_return4} times more likely buying item B')
+    
+    st.write(f'Customer who buys {button} is likely to buy: {button_return1}')
+   
+    st.write("   ")
+    st.write(f'{button_return2} of all the transactions under analysis showed that {button} and {button_return1} were purchased together')
+    st.write(f'If a customer buys {button} there is a {button_return3} chance that they will buy {button_return1} as well.')
+    st.write(f'The purchase of {button_return1} lifts the purchase of {button} by {button_return4} times.')
