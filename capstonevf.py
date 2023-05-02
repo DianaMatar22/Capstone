@@ -34,7 +34,8 @@ if page == "Overview":
         st.write("Luanatic have a variety of products that they sell such as mugs, espresso mugs, posters, keychains, bibs, tote bags, magnets, notebooks, stickers, pouches, bottles, and more...") 
         st.write("Moreover, each product they have, comes in different themes. For example, Mug Habibi, Bib Khalto Rocks, Poster Alo Beirut, Espresso Mug Shaffeh, Keychain Supermama, etc...")
         st.write("In this project, the main purpose was to analyze Luanatic customer purchase behavior on the website and create a recommendation system to optimize the cross-selling process and in turn increase profitability.")
-
+        st.write("The analysis in this project was done on the dataset extracted from Janaury 2020 till December 2022.")
+        
     with col2:
         #Image
         st.image('luanaticstreamlit.png')
